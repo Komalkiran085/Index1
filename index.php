@@ -88,5 +88,83 @@
 		<div class="col-sm-2"></div>
 		</div>
 	</section>
+    <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
+	<script type="text/javascript">
+    	var btn = document.getElementById('btn');
+    	     var bton = document.getElementById('bton');
+            var  login = document.getElementById('login');
+             var signup = document.getElementById('signup');
+
+        btn.addEventListener("click", function(){
+        	// form2.classList.remove('show');
+        	signup.classList.remove('hidden');
+
+        	login.classList.add('hidden');
+        	signup.classList.add('show');
+        });
+
+        bton.addEventListener('click', function(){
+        	
+        	login.classList.remove('hidden');
+        	// form1.classList.remove('show');
+
+        	login.classList.add('show');
+        	signup.classList.add('hidden');
+        });
+
+        function sendlogin()
+		{
+			var username = document.getElementById('username').value;
+			var password = document.getElementById('password').value;
+			
+			var token = "<?php echo password_hash("logintoken", PASSWORD_DEFAULT);?>"
+			if(username != "" && password != "")
+			{
+
+			}
+			else
+			{
+				alert('please fill all the details.');
+			}
+		}
+
+		function sendsignup()
+		{
+			var name = document.getElementById('name').value;
+			var email = document.getElementById('email').value;
+			var phone = document.getElementById('phone').value;
+			var gender = document.getElementById('gender').value;
+			var password1 = document.getElementById('password1').value;
+			var cpassword = document.getElementById('cpassword').value;
+			var token = "<?php echo password_hash("signuptoken", PASSWORD_DEFAULT);?>"
+			if(name != "" && email != "" && phone != "" && gender != "" && password1 != "" && cpassword != "")
+			{
+				if(password1 == cpassword)
+				{
+					$.ajax(
+				{
+					type:'POST',
+					url:"ajax/signup.php",
+					data:{name:name,email:email,phone:phone,gender:gender,password1:password1,cpassword:cpassword,token:token},
+					success:function(data)
+					{
+						alert(data);
+					}
+				});
+				}
+
+			}
+			else
+			{
+				alert('Password and confirm password are not same');
+			}
+
+		}
+
+    </script>
+<script type="text/javascript">
+    $('form').submit(function(e) {
+    e.preventDefault();
+});</script>
 </body>
 </html>
